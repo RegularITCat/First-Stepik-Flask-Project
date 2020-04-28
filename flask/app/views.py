@@ -188,7 +188,14 @@ tours = {
 
 @app.route("/")
 def index():
-	return render_template("index.html")
+    data = {
+        'title' : title,
+        'subtitle' : subtitle,
+        'description' : description,
+        'departures' : departures,
+        'tours' : tours
+    }
+    return render_template("index.html", **data)
 
 @app.route("/departures/<departure>")
 def departure(departure):
