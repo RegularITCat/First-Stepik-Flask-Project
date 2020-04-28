@@ -1,5 +1,5 @@
 from app import app
-
+from flask import render_template
 
 title = "Stepik Travel"
 subtitle = "Для тех, кого отвлекают дома"
@@ -188,12 +188,12 @@ tours = {
 
 @app.route("/")
 def index():
-	return "index under development"
+	return render_template("index.html")
 
 @app.route("/departures/<departure>")
 def departure(departure):
-	return "departure under development"
+	return render_template("departure.html")
 
 @app.route("/tours/<int:id>")
 def toure(id):
-	return "tours under development"
+	return render_template("tour.html")
