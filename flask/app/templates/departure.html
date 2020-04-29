@@ -9,7 +9,7 @@
 <body>
   <header class="container mt-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">{{ title }}</a>
+      <a class="navbar-brand" href="{{ url_for('.index') }}">{{ title }}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,7 +29,7 @@
     <p class="mb-4">Найдено {{ departures_amount }} туров, от {{ price_min }} до {{ price_max }} и от {{ nights_min }} ночей до {{ nights_max }} ночей</p>
     <!-- CARDS -->
     <div class="row mt-5">
-      {% for element in tours.values() %}
+      {% for key, element in tours.items() %}
       <div class="col-4">
         <div class="card mb-4">
           <div class="embed-responsive embed-responsive-16by9">
@@ -38,8 +38,8 @@
           <div class="card-body">
             <h2 class="h5 card-title">{{ element.title }}</h2>
             <p class="card-text">{{ element.description }}</p>
-            <p class="card-text">{{ element.date }}, {{ element.nights }}, {{ element.price }} P, {{ element.stars }} ⭐</p>
-            <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+            <p class="card-text">{{ element.date }}, {{ element.nights }} дней, {{ element.price }} P, {{ element.stars }} ⭐</p>
+            <a href="{{ url_for('.tours', id=key) }}" class="btn btn-sm btn-primary">Подробнее</a>
           </div>
         </div>
       </div>

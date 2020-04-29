@@ -229,6 +229,13 @@ def departure(departure):
     return render_template("departure.html", **new_data)
 
 @app.route("/tours/<int:id>")
-def toure(id):
-
-    return render_template("tour.html", **data)
+def tours(id):
+    new_data = {
+        "title" : data['title'],
+        "subtitle" : data['subtitle'],
+        "description" : data['description'],
+        "departures" : data['departures'],
+        "tour" : data['tours'].get(id)
+    }
+    new_data['tour']['stars'] = int(new_data['tour']['stars'])
+    return render_template("tour.html", **new_data)
