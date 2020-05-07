@@ -2,7 +2,7 @@
 
 {% block container %}
     <h1 class="display-5 mt-4">Летим {{ departures[request.path.replace('/departures/', '')] }}</h1>
-    <p class="mb-4">Найдено {{ tours|length }} туров, от {{ (tours.values()|min(attribute="price")).price }} до {{ (tours.values()|max(attribute="price")).price }} и от {{ (tours.values()|min(attribute="nights")).nights }} ночей до {{ (tours.values()|max(attribute="nights")).nights }} ночей</p>
+    <p class="mb-4">Найдено {{ tours|length }} туров, от {{ (tours.values()|min(attribute="price")).price }} до {{ (tours.values()|max(attribute="price")).price }} рублей и от {{ (tours.values()|min(attribute="nights")).nights }} до {{ (tours.values()|max(attribute="nights")).nights }} ночей</p>
     <!-- CARDS -->
     <div class="row mt-5">
       {% for key, element in tours.items() %}
