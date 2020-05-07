@@ -190,7 +190,16 @@ data = {
 
 @app.route("/")
 def index():
-    return render_template("index.html", **data)
+    new_data = {
+        "title" : data['title'],
+        "subtitle" : data['subtitle'],
+        "description" : data['description'],
+        "departures" : data['departures'],
+        "tours" : {}
+    }
+    for i in range(1, 7):
+        new_data['tours'].update({i : data['tours'].get(i)})
+    return render_template("index.html", **new_data)
 
 @app.route("/departures/<departure>")
 def departure(departure):
@@ -199,33 +208,10 @@ def departure(departure):
         "subtitle" : data['subtitle'],
         "description" : data['description'],
         "departures" : data['departures'],
-        "current_departure" : departure,
-        "departures_amount" : 0,
-        "nights_min" : 0,
-        "nights_max" : 0,
-        "price_min" : 0,
-        "price_max" : 0,
         "tours" : {}
     }
-    first_departure_bool = False
     for i, e in data['tours'].items():
         if (e['departure'] == departure):
-            new_data['departures_amount'] += 1
-            if first_departure_bool == False:
-                new_data['nights_min'] = e['nights']
-                new_data['nights_max'] = e['nights']
-                new_data['price_min'] = e['price']
-                new_data['price_max'] = e['price']
-                first_departure_bool = True
-            else:
-                if new_data['nights_min'] > e['nights']:
-                    new_data['nights_min'] = e['nights']
-                if new_data['nights_max'] < e['nights']:
-                    new_data['nights_max'] = e['nights']
-                if new_data['price_min'] > e['price']:
-                    new_data['price_min'] = e['price']
-                if new_data['price_max'] < e['price']:
-                    new_data['price_max'] = e['price']
             new_data['tours'].update({i : e})
     return render_template("departure.html", **new_data)
 
@@ -238,5 +224,4 @@ def tours(id):
         "departures" : data['departures'],
         "tour" : data['tours'].get(id)
     }
-    new_data['tour']['stars'] = int(new_data['tour']['stars'])
     return render_template("tour.html", **new_data)
